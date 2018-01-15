@@ -356,29 +356,45 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private void showOrderConfirmationDialog(final String number){
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the positive and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.order_dialog_msg) + " " + number + "?");
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the item.
-                onCallNumber(number);
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the item.
-                if (dialog != null) {
-                    dialog.dismiss();
+        if(!TextUtils.isEmpty(number)) {
+            // Create an AlertDialog.Builder and set the message, and click listeners
+            // for the positive and negative buttons on the dialog.
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getString(R.string.order_dialog_msg) + " " + number + "?");
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked the "Delete" button, so delete the item.
+                    onCallNumber(number);
                 }
-            }
-        });
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked the "Cancel" button, so dismiss the dialog
+                    // and continue editing the item.
+                    if (dialog != null) {
+                        dialog.dismiss();
+                    }
+                }
+            });
 
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+            // Create and show the AlertDialog
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Please enter a valid phone number !");
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    if (dialog != null) {
+                        dialog.dismiss();
+                    }
+                }
+            });
+            // Create and show the AlertDialog
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
 
     private void showDeleteConfirmationDialog() {

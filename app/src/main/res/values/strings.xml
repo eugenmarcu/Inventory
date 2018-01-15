@@ -84,4 +84,7 @@
     <!-- Dummy item quantity [CHAR LIMIT=20] -->
     <string name="dummy_item_quantity">50</string>
 
+    <!-- Price currency symbol [CHAR LIMIT=20] -->
+    <string name="price_currency">" Lei"</string>
+
 </resources>
