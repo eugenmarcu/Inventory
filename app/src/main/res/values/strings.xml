@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Inventory</string>
+    <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text">It\'s a bit lonely here...</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a item [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Get started by adding a item</string>
+
+    <!-- Label for overflow menu option that inserts fake item data into the app [CHAR LIMIT=20] -->
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+
+    <!-- Label for overflow menu option that deletes all item data in the app [CHAR LIMIT=20] -->
+    <string name="action_delete_all_entries">Delete All Items</string>
+
+    <!-- Unknown price for the current item[CHAR LIMIT=20] -->
+    <string name="unknown_price">No price in</string>
+
+    <!-- Label for editor menu option to save item and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current item [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current item [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this item?</string>
+
+    <!-- Dialog message to ask the user to confirm call for order the current item [CHAR LIMIT=NONE] -->
+    <string name="order_dialog_msg">Call </string>
+
+    <!-- Dialog button text for the option to confirm order call the current item [CHAR LIMIT=20] -->
+    <string name="ok">Ok</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current item [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current item [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+
+    <!-- Toast message in editor when current item was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_item_successful">Item deleted</string>
+
+    <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_item_failed">Error with deleting item</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current item [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Toast message in editor when new item has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_item_successful">Item saved</string>
+
+    <!-- Toast message in editor when new item has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_item_failed">Error with saving item</string>
+
+    <!-- Label for editor item name [CHAR LIMIT=20] -->
+    <string name="item_name">Item name</string>
+
+    <!-- Label for editor item price [CHAR LIMIT=20] -->
+    <string name="item_price">Price</string>
+
+    <!-- Label for editor item quantity [CHAR LIMIT=20] -->
+    <string name="item_quantity">Quantity</string>
+
+    <!-- Label for editor item supplier name [CHAR LIMIT=20] -->
+    <string name="item_supplier">Supplier</string>
+
+    <!-- Label for editor item supplier phone number [CHAR LIMIT=20] -->
+    <string name="item_supplier_phone">tel: </string>
+
+    <!-- Label for editor item supplier name [CHAR LIMIT=20] -->
+    <string name="item_supplier_email">email: </string>
+
+    <!-- Dummy item name [CHAR LIMIT=20] -->
+    <string name="dummy_item_name">Coca Cola 0.33l</string>
+
+    <!-- Dummy item price [CHAR LIMIT=20] -->
+    <string name="dummy_item_price">2.5</string>
+
+    <!-- Dummy item quantity [CHAR LIMIT=20] -->
+    <string name="dummy_item_quantity">50</string>
+
+</resources>
