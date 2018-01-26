@@ -77,7 +77,6 @@
             android:id="@+id/container_measurement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:orientation="horizontal">
 
             <!-- Label -->
@@ -106,7 +105,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:orientation="horizontal">
 
             <!-- Label -->
@@ -135,7 +133,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:orientation="horizontal">
 
             <!-- Label -->
@@ -164,7 +161,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:orientation="horizontal">
 
             <!-- Label -->
@@ -187,6 +183,40 @@
                     android:inputType="text" />
 
             </RelativeLayout>
+        </LinearLayout>
+
+        <!-- Barcode category -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/item_barcode" />
+
+            <!-- Input fields -->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingLeft="4dp">
+
+                <!-- Barcode field -->
+                <TextView
+                    android:id="@+id/edit_item_barcode"
+                    style="@style/EditorFieldStyle"
+                    tools:text="09784653120" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/edit_item_barcode_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:text="Edit" />
         </LinearLayout>
 
         <ImageButton

@@ -75,6 +75,9 @@
     <!-- Label for editor item supplier name [CHAR LIMIT=20] -->
     <string name="item_supplier_email">email: </string>
 
+    <!-- Label for editor item barcode [CHAR LIMIT=20] -->
+    <string name="item_barcode">barcode: </string>
+
     <!-- Dummy item name [CHAR LIMIT=20] -->
     <string name="dummy_item_name">Coca Cola 0.33l</string>
 

@@ -3,6 +3,7 @@ package com.example.android.inventory.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.android.inventory.data.ItemContract.ItemEntry;
 
@@ -42,10 +43,12 @@ public class ItemDbHelper extends SQLiteOpenHelper {
                 + ItemEntry.COLUMN_ITEM_QUANTITY + " FLOAT NOT NULL DEFAULT 0,"
                 + ItemEntry.COLUMN_ITEM_SUPPLIER + " TEXT, "
                 + ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE + " TEXT, "
-                + ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL + " TEXT);";
+                + ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL + " TEXT, "
+                + ItemEntry.COLUMN_ITEM_BARCODE + " TEXT);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_ITEMS_TABLE);
+        Log.v(LOG_TAG, "Database created!");
     }
 
     /**

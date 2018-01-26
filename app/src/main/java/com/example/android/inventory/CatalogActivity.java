@@ -45,7 +45,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 startActivity(intent);
             }
         });
-        mDbHelper = new ItemDbHelper(this); //SQLiteDatabase db = mDbHelper.getWritableDatabase(); db.execSQL("DROP TABLE items.db;");
+        mDbHelper = new ItemDbHelper(this);
 
         ListView list = (ListView) findViewById(R.id.list_view);
 

@@ -77,6 +77,13 @@ public final class ItemContract {
          */
         public final static String COLUMN_ITEM_SUPPLIER_EMAIL = "email";
 
+        /**
+         * Supplier email of the item.
+         *
+         * Type: TEXT
+         */
+        public final static String COLUMN_ITEM_BARCODE = "barcode";
+
 
 
 

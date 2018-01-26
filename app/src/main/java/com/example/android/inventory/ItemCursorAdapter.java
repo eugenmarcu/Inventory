@@ -97,7 +97,6 @@ public class ItemCursorAdapter extends CursorAdapter {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Button - pressed for " + name, Toast.LENGTH_SHORT).show();
                 if (quantity > 0) {
                     values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity - 1);
                     updateQuantity(context, values, id);
@@ -110,7 +109,6 @@ public class ItemCursorAdapter extends CursorAdapter {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Button + pressed for " + name, Toast.LENGTH_SHORT).show();
                 values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity + 1);
                 updateQuantity(context, values, id);
 

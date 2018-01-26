@@ -3,6 +3,7 @@
     package="com.example.android.inventory">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -25,6 +26,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity" />
+        </activity>
+        <activity
+            android:name=".BarcodeActivity"
+            android:label="Barcode Scanner"
+            android:theme="@style/EditorTheme">
+            <!--android:parentActivityName=".EditorActivity"> -->
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <!--<meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".EditorActivity" /> -->
         </activity>
         <provider
             android:name=".data.ItemProvider"

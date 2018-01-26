@@ -1,7 +1,9 @@
 package com.example.android.inventory;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,15 +26,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.inventory.data.ItemContract.ItemEntry;
 import com.example.android.inventory.data.ItemDbHelper;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 /**
  * Created by Eugen on 10-Jan-18.
@@ -42,6 +49,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     Uri mUri;
     private int CURSOR_LOADER_ID = 2;
+    private int BARCODE_REQUEST_CODE = 1;
     private boolean mItemHasChanged = false;
 
     /**
@@ -70,14 +78,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mPhoneEditText;
 
     /**
-     * EditText field to enter the item's suppliers' email
+     * EditText field to enter the item's supplier's email
      */
     private EditText mEmailEditText;
+
+    /**
+     * TextView field to show the item's barcode
+     */
+    private TextView mBarcodeText;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editor_activity);
+
+
 
         mUri = getIntent().getData();
         if (mUri != null) {
@@ -101,6 +117,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierEditText = findViewById(R.id.edit_item_supplier);
         mPhoneEditText = findViewById(R.id.edit_item_supplier_phone);
         mEmailEditText = findViewById(R.id.edit_item_supplier_email);
+        mBarcodeText = findViewById(R.id.edit_item_barcode);
 
         mNameEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
@@ -108,6 +125,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierEditText.setOnTouchListener(mTouchListener);
         mPhoneEditText.setOnTouchListener(mTouchListener);
         mEmailEditText.setOnTouchListener(mTouchListener);
+        mBarcodeText.setOnTouchListener(mTouchListener);
 
         ImageButton buttonSave = findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +165,26 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         else
             buttonOrder.setVisibility(View.GONE);
+        Button buttonBarcode = findViewById(R.id.edit_item_barcode_button);
+        buttonBarcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditorActivity.this, BarcodeActivity.class);
+                startActivityForResult(intent, BARCODE_REQUEST_CODE);
+            }
+        });
+    }
+
+    //On barcode scan
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == resultCode) {
+            //For unsaved changes
+            mItemHasChanged = true;
+            String result = data.getExtras().getString("CODE");
+            TextView barcodeTextView = findViewById(R.id.edit_item_barcode);
+            barcodeTextView.setText(result);
+        }
     }
 
     //Checks the call permissions or request them, than call
@@ -178,7 +216,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ItemEntry.COLUMN_ITEM_QUANTITY,
                 ItemEntry.COLUMN_ITEM_SUPPLIER,
                 ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE,
-                ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL
+                ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL,
+                ItemEntry.COLUMN_ITEM_BARCODE
         };
 
 
@@ -196,18 +235,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int supplierColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER);
             int supplierPhoneColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE);
             int supplierEmailColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL);
+            int barcodeColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_BARCODE);
             String name = cursor.getString(nameColumnIndex);
             Double price = cursor.getDouble(priceColumnIndex);
             Double quantity = cursor.getDouble(quantityColumnIndex);
             String supplier = cursor.getString(supplierColumnIndex);
             String phone = cursor.getString(supplierPhoneColumnIndex);
             String email = cursor.getString(supplierEmailColumnIndex);
+            String barcode = cursor.getString(barcodeColumnIndex);
             mNameEditText.setText(name);
             mPriceEditText.setText(formatDouble(price));
             mQuantityEditText.setText(formatDouble(quantity));
             mSupplierEditText.setText(supplier);
             mPhoneEditText.setText(phone);
             mEmailEditText.setText(email);
+            mBarcodeText.setText(barcode);
         }
     }
     String formatDouble(double num){
@@ -224,6 +266,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierEditText.setText("");
         mPhoneEditText.setText("");
         mEmailEditText.setText("");
+        mBarcodeText.setText("");
     }
 
     @Override
@@ -298,16 +341,31 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String supplierString = mSupplierEditText.getText().toString().trim();
         String phoneString = mPhoneEditText.getText().toString().trim();
         String emailString = mEmailEditText.getText().toString().trim();
+        String barcodeString = mBarcodeText.getText().toString().trim();
         //If no valid data exit method
         if(mUri == null && TextUtils.isEmpty(nameString)&&TextUtils.isEmpty(priceString))
             return;
         double quantity = 0;
         double price = 0;
         if (!TextUtils.isEmpty(quantityString)) {
-            quantity = Double.parseDouble(quantityString);
+            NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+            try {
+                Number number = format.parse(quantityString);
+                quantity = number.doubleValue();
+            }
+            catch (ParseException e) {
+                quantity = Double.parseDouble(quantityString);
+            }
         }
         if(!TextUtils.isEmpty(priceString)){
-            price = Double.parseDouble(priceString);
+            NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+            try {
+                Number number = format.parse(priceString);
+                price = number.doubleValue();
+            }
+            catch (ParseException e){
+                price = Double.parseDouble(priceString);
+            }
         }
 
 
@@ -326,6 +384,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER, supplierString);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE, phoneString);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_EMAIL, emailString);
+        values.put(ItemEntry.COLUMN_ITEM_BARCODE, barcodeString);
 
         if (mUri == null) {
             // Insert a new row for item in the database, returning the ID of that new row.
